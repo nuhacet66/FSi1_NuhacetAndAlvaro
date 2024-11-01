@@ -565,12 +565,12 @@ class branch_and_bound(Queue):
         
 
     def pop(self):
-        element = self.A[self.start]
+        e = self.A[self.start]
         self.start += 1
         if self.start > 5 and self.start > len(self.A) / 2:
             self.A = self.A[self.start:]
             self.start = 0
-        return element
+        return e
 
 
 class branch_and_bound_with_subestimation(Queue):
@@ -584,8 +584,8 @@ class branch_and_bound_with_subestimation(Queue):
     def append(self, item):
         self.A.append(item)
 
-    def Take_Heuristic(self, elem):
-        return To_take_Path_Cost(elem) + self.heuristics.h(elem)
+    def Take_Heuristic(self, item):
+        return To_take_Path_Cost(item) + self.heuristics.h(item)
 
     def __len__(self):
         return len(self.A) - self.start
