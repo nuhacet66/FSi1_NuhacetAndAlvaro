@@ -543,8 +543,8 @@ class FIFOQueue(Queue):
             self.start = 0
         return e
 
-def To_take_Path_Cost(elem):
-    return elem.path_cost
+def To_take_Path_Cost(element):
+    return element.path_cost
 
 class branch_and_bound(Queue):
     """A First-In-First-Out Queue."""
