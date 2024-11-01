@@ -590,13 +590,14 @@ class branch_and_bound_with_subestimation(Queue):
         self.start = 0
         # se asigna la subestimacion
         self.subestimation = subestimation
+   
 # metodo append que agrega un elemento a la lista
     def append(self, item):
         self.A.append(item)
 
 # metodo para elegir la heuristica
     def choose_heuristic(self, item):
-        return self.subestimation(item) + take_the_path_cost(item)
+        return take_the_path_cost(item) + self.subestimation(item)
 
 # metodo __len__ que devuelve la longitud de la lista
     def __len__(self):
@@ -605,7 +606,7 @@ class branch_and_bound_with_subestimation(Queue):
 # metodo extend que agrega una lista de elementos a la lista
     def extend(self, items):
         self.A.extend(items)
-        self.A.sort(key=self.choose_heuristic)
+        self.A.sort(key = lambda x: self.choose_heuristic(x))
 
 # metodo pop que devuelve el primer elemento de la lista
     def pop(self):
