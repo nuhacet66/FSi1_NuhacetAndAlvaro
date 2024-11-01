@@ -3,6 +3,8 @@
 import search,time
 
 ab = search.GPSProblem('A', 'B', search.romania)
+
+print("A --> B")
 # imprimir tiempo de ejecución
 print("Breadth First Search")
 start_time = time.time()
