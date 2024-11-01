@@ -534,6 +534,7 @@ class FIFOQueue(Queue):
 
     def extend(self, items):
         self.A.extend(items)
+        
 
     def pop(self):
         e = self.A[self.start]
@@ -543,6 +544,84 @@ class FIFOQueue(Queue):
             self.start = 0
         return e
 
+
+def take_the_path_cost(element):
+    return element.path_cost
+
+
+
+class branch_and_bound(Queue):
+# inicio de la clase con __init__ en donde se inicializan las variables
+    def __init__(self):
+        # se inicializa la lista A vacia
+        self.A = []
+        # se inicializa el inicio en 0
+        self.start = 0
+# metodo append que agrega un elemento a la lista
+    def append(self, item):
+        self.A.append(item)
+# metodo __len__ que devuelve la longitud de la lista
+    def __len__(self):
+        return len(self.A) - self.start
+# metodo extend que agrega una lista de elementos a la lista
+    def extend(self, items):
+        self.A.extend(items)
+        self.A.sort(key=take_the_path_cost)
+# metodo pop que devuelve el primer elemento de la lista
+    def pop(self):
+        # se obtiene el primer elemento de la lista
+        e = self.A[self.start]
+        # se incrementa el inicio de la lista
+        self.start += 1
+        # si el inicio es mayor a 5 y el inicio es mayor a la mitad de la longitud de la lista
+        if self.start > 5 and self.start > len(self.A) / 2:
+            # se asigna a la lista A los elementos de la lista A desde el inicio hasta el final
+            self.A = self.A[self.start:]
+            # se asigna el inicio a 0
+            self.start = 0
+        return e
+
+class branch_and_bound_with_subestimation(Queue):
+# inicio de la clase con __init__ en donde se inicializan las variables
+    def __init__(self, subestimation):
+        # se inicializa la lista A vacia
+        self.A = []
+        # se inicializa el inicio en 0
+        self.start = 0
+        # se asigna la subestimacion
+        self.subestimation = subestimation
+# metodo append que agrega un elemento a la lista
+    def append(self, item):
+        self.A.append(item)
+
+# metodo para elegir la heuristica
+    def choose_heuristic(self, item):
+        return self.subestimation(item) + take_the_path_cost(item)
+
+# metodo __len__ que devuelve la longitud de la lista
+    def __len__(self):
+        return len(self.A) - self.start
+    
+# metodo extend que agrega una lista de elementos a la lista
+    def extend(self, items):
+        self.A.extend(items)
+        self.A.sort(key=self.choose_heuristic)
+
+# metodo pop que devuelve el primer elemento de la lista
+    def pop(self):
+        # se obtiene el primer elemento de la lista
+        e = self.A[self.start]
+        # se incrementa el inicio de la lista
+        self.start += 1
+        # si el inicio es mayor a 5 y el inicio es mayor a la mitad de la longitud de la lista
+        if self.start > 5 and self.start > len(self.A) / 2:
+            # se asigna a la lista A los elementos de la lista A desde el inicio hasta el final
+            self.A = self.A[self.start:]
+            # se asigna el inicio a 0
+            self.start = 0
+        return e
+       
+        
 
 
 ## Fig: The idea is we can define things like Fig[3,10] later.

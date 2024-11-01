@@ -8,6 +8,7 @@ functions."""
 from utils import *
 import random
 import sys
+import math
 
 
 # ______________________________________________________________________________
@@ -51,6 +52,14 @@ class Problem:
         """For optimization problems, each state has a value.  Hill-climbing
         and related algorithms try to maximize this value."""
         abstract
+    
+    def heuristic(self, node):
+        # calculate the heuristic value with Pythagorean theorem
+        # a^2 + b^2 = c^2
+        self.locations = getattr(self.graph, 'locations', None)
+        if self.locations:
+            return math.sqrt((self.locations[node.state][0] - self.locations[self.goal][0])**2 + (self.locations[node.state][1] - self.locations[self.goal][1])**2)
+       
 
 
 # ______________________________________________________________________________
@@ -124,6 +133,11 @@ def depth_first_graph_search(problem):
     """Search the deepest nodes in the search tree first. [p 74]"""
     return graph_search(problem, Stack())
 
+def b_a_b(problem):
+    return graph_search(problem, branch_and_bound())
+
+def b_a_b_sub(problem):
+    return graph_search(problem, branch_and_bound_with_subestimation(problem.heuristic(problem)))
 
 
 # _____________________________________________________________________________
