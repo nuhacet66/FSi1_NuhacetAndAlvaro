@@ -135,54 +135,9 @@ print("------------------------------------")
 ###############################################################################
 print("###############################################################################")
 
-oe = search.GPSProblem('O', 'E', search.romania)
-
-print("A --> B")
-# imprimir tiempo de ejecución
-print("Breadth First Search")
-start_time = time.time()
-print(search.breadth_first_graph_search(oe).path())
-# coste de la solución
-print("Coste de la solución: " + str(search.breadth_first_graph_search(oe).path_cost))
-print("Tiempo de ejecución:" + (str((time.time() - start_time) * 1e9) + " nanosegundos"))
-print("------------------------------------")
-
-
-
-print("Depth First Search")
-start_time = time.time()
-print(search.depth_first_graph_search(oe).path())
-# coste de la solución
-print("Coste de la solución: " + str(search.depth_first_graph_search(oe).path_cost))
-print("Tiempo de ejecución:" + (str((time.time() - start_time) * 1e9) + " nanosegundos"))
-print("------------------------------------")
-
-
-
-print("Branch and Bound")
-start_time = time.time()
-print(search.b_a_b(oe).path())
-# coste de la solución
-print("Coste de la solución: " + str(search.b_a_b(oe).path_cost))
-print("Tiempo de ejecución:" + (str((time.time() - start_time) * 1e9) + " nanosegundos"))
-print("------------------------------------")
-
-
-
-print("Branch and Bound with subestimation")
-start_time = time.time()
-print(search.b_a_b_sub(oe).path())
-# coste de la solución
-print("Coste de la solución: " + str(search.b_a_b_sub(oe).path_cost))
-print("Tiempo de ejecución:" + (str((time.time() - start_time) * 1e9) + " nanosegundos"))
-print("------------------------------------")
-
-###############################################################################
-print("###############################################################################")
-
 nd = search.GPSProblem('N', 'D', search.romania)
 
-print("A --> B")
+print("N --> D")
 # imprimir tiempo de ejecución
 print("Breadth First Search")
 start_time = time.time()
